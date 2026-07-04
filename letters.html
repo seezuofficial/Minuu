@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open When Letters — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:36vh;">
+  <div class="eyebrow reveal">Open only when you need to</div>
+  <h1 class="display reveal">Open When Letters 💌</h1>
+  <p class="section-sub reveal">Jab bhi zaroorat ho, koi ek envelope khol lena.</p>
+</section>
+
+<section class="section">
+  <div class="envelope-grid" id="envelope-grid"></div>
+</section>
+
+<div class="letter-modal" id="letter-modal">
+  <div class="letter-paper">
+    <span class="letter-close" id="letter-close">✕</span>
+    <div id="letter-text"></div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <a href="favorite.html">← Back</a> &nbsp;|&nbsp; <a href="games.html">Next: Games →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  const letters = [
+    {key:'happy', title:"Open When You're Happy", icon:'😊',
+     text:"Minnu, agar tu yeh padh rahi hai toh iska matlab tu khush hai — aur mujhe iससे zyada kuch nahi chahiye. Yeh smile aise hi rakhna, main door se bhi guard kar raha hoon. 💛"},
+    {key:'sad', title:"Open When You're Sad", icon:'😢',
+     text:"Hey, ro mat. Jo bhi hua, theek ho jayega — aur tab tak main hoon, chai hai, aur ek lambi call hai. Tu akeli nahi hai, kabhi nahi. 🤍"},
+    {key:'miss', title:"Open When You Miss Me", icon:'🥺',
+     text:"Main bhi tujhe utna hi miss kar raha, promise. Phone uthana, seedha bol dena — main sunne ke liye hamesha free hoon tere liye. 📞💌"},
+    {key:'angry', title:"Open When You're Angry at Me", icon:'😤',
+     text:"Theek hai, gussa ho le pura. Lekin yaad rakhna — main sorry bolne se peeche nahi hatunga, aur tujhe manane mein expert hoon. 😅🤍"},
+    {key:'sleep', title:"Open When You Can't Sleep", icon:'🌙',
+     text:"Aankhein band kar, ek deep breath le. Soch le ki main tere paas hoon, sab shaant hai, aur kal phir se ek achha din hoga. Good night, Minnu. 🌙✨"},
+  ];
+  const grid = document.getElementById('envelope-grid');
+  letters.forEach(l=>{
+    const env = document.createElement('div');
+    env.className = 'envelope glass tilt-card reveal';
+    env.innerHTML = `<div class="flap">✉️</div><div style="font-size:1.5rem;">${l.icon}</div><h3 style="margin-top:8px;font-size:1.05rem;">${l.title}</h3>`;
+    env.addEventListener('click', ()=> openLetter(l));
+    grid.appendChild(env);
+  });
+  initReveal();
+
+  const modal = document.getElementById('letter-modal');
+  function openLetter(l){
+    document.getElementById('letter-text').innerHTML = `<h3 style="margin-bottom:14px;">${l.icon} ${l.title}</h3><p>${l.text}</p>`;
+    modal.classList.add('open');
+    unlockAchievement('letters');
+  }
+  document.getElementById('letter-close').addEventListener('click', ()=> modal.classList.remove('open'));
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.remove('open'); });
+
+  initTreasureHeart('letters');
+  initKonami();
+</script>
+</body>
+</html>

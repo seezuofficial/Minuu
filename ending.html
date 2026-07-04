@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="ending-hero section">
+  <div class="eyebrow reveal">The last page (for now)</div>
+  <h1 class="display reveal" style="font-size:clamp(2.2rem,6vw,3.4rem);">Will You Stay Forever, Minnu? 💍</h1>
+  <p class="section-sub reveal" style="max-width:520px;">Tumne pura safar dekh liya — roast se lekar letters, games se lekar yeh moment tak. Ab bas ek sawaal hai.</p>
+  <div class="stay-buttons reveal">
+    <button class="btn glow" id="yes-btn">Yes, Forever 💖</button>
+    <button class="btn ghost" id="no-btn">No 😏</button>
+  </div>
+  <p id="ending-response" style="min-height:30px;font-size:1.1rem;margin-top:16px;"></p>
+</section>
+
+<section class="section">
+  <div class="signature-wall glass reveal">
+    <h3 class="display">Digital Signature Wall</h3>
+    <p class="mt">Apna naam chhod jao, is moment ko yaad rakhne ke liye.</p>
+    <a href="signature.html" class="btn glow mt">Go Sign the Wall 🖋️</a>
+  </div>
+
+  <div class="certificate glass reveal mt">
+    <h3>Memory Certificate</h3>
+    <p class="mt">This certifies that this entire site was made with way too much time, effort, and love — for Minnu, by Chhota Don.</p>
+    <button class="btn ghost mt" id="download-memory-cert">Download Certificate 📜</button>
+  </div>
+
+  <div class="glass reveal mt" style="max-width:520px;margin:30px auto;padding:26px;text-align:center;">
+    <h3 class="display">One Last Time Capsule Message</h3>
+    <p class="mt hand" style="font-size:1.4rem;color:var(--accent-2);">"Jo bhi aage aaye, achha ya bura — main tere saath hi rehna chahta hoon. Yeh site bas ek shuruaat thi. Baaki sab, hum saath likhenge."</p>
+    <p class="mt" style="opacity:0.7;font-size:0.85rem;">— Chhota Don, written for future us</p>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="extras.html">← Back</a> &nbsp;|&nbsp; <a href="index.html">Restart from Home →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  unlockAchievement('ending');
+  spawnFxLayer('heart', 12);
+
+  document.getElementById('yes-btn').addEventListener('click', ()=>{
+    document.getElementById('ending-response').textContent = "Best decision ever, Minnu. 💍💕";
+    fireConfetti(3200);
+  });
+  document.getElementById('no-btn').addEventListener('click', ()=>{
+    const r = document.getElementById('ending-response');
+    r.textContent = "😢 Chhota Don is crying dramatically on the floor...";
+    setTimeout(()=>{
+      r.textContent = "Jk, tumhare paas 'no' bolne ka option hi nahi tha. Forever it is. 😂💖";
+      fireConfetti(3200);
+    }, 1600);
+  });
+
+  document.getElementById('download-memory-cert').addEventListener('click', ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = 800; canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#2a0f1a'; ctx.fillRect(0,0,800,500);
+    ctx.strokeStyle = '#ff6f91'; ctx.lineWidth = 6; ctx.strokeRect(20,20,760,460);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffc75f'; ctx.font = '38px Georgia'; ctx.fillText('Memory Certificate', 400, 110);
+    ctx.fillStyle = '#fff3f6'; ctx.font = '20px Georgia';
+    ctx.fillText('This certifies that a whole website was built,', 400, 200);
+    ctx.fillText('start to finish, out of love for', 400, 230);
+    ctx.fillStyle = '#ff9a8b'; ctx.font = '44px Georgia'; ctx.fillText('Minnu', 400, 300);
+    ctx.fillStyle = '#ffd9e3'; ctx.font = 'italic 20px Georgia'; ctx.fillText('— Chhota Don, forever and always', 400, 420);
+    const link = document.createElement('a');
+    link.download = 'minnu-memory-certificate.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  initTreasureHeart('ending');
+  initKonami();
+</script>
+</body>
+</html>

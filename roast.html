@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Roast — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:40vh;">
+  <div class="eyebrow reveal">Court is now in session</div>
+  <h1 class="display reveal">The Case of the Missing Photo 😭</h1>
+</section>
+
+<section class="section">
+  <div class="court-card glass reveal">
+    <div class="court-line"><span class="court-label">Case No.</span> 001 / Minnu vs. Chhota Don's Patience</div>
+    <div class="court-line"><span class="court-label">Crime</span> Photo nahi diya 😭</div>
+    <div class="court-line"><span class="court-label">Judge</span> Chhota Don (self-appointed, fully biased)</div>
+    <div class="court-line"><span class="court-label">Verdict</span> Phir bhi maafi hai kyunki tu cute hai 🥺</div>
+    <div class="mt"><span class="hand" style="font-size:1.3rem;color:var(--accent-2);">Case closed with love, not evidence.</span></div>
+  </div>
+
+  <h2 class="section-title reveal">Ghost Gallery 👻</h2>
+  <p class="section-sub reveal">Yahan photos hone chahiye the. Instead, yahan sirf feelings hain.</p>
+  <div class="ghost-gallery">
+    <div class="ghost-frame glass tilt-card reveal">👻<span class="cap">"Minnu, probably smiling"</span></div>
+    <div class="ghost-frame glass tilt-card reveal">🌫️<span class="cap">"Minnu, definitely camera-shy"</span></div>
+    <div class="ghost-frame glass tilt-card reveal">🕵️<span class="cap">"Undercover Minnu"</span></div>
+    <div class="ghost-frame glass tilt-card reveal">🫥<span class="cap">"Loading... forever"</span></div>
+  </div>
+
+  <div class="certificate glass reveal">
+    <h3>Official Certificate</h3>
+    <p style="margin-top:10px;">This is to certify that</p>
+    <p class="hand" style="font-size:1.6rem;color:var(--accent-3);margin:6px 0;">Minnu</p>
+    <p>successfully avoided sending a single photo, and is hereby sentenced to a lifetime of being adored anyway.</p>
+    <button class="btn ghost mt" id="download-cert">Download Certificate 📜</button>
+  </div>
+
+  <div style="text-align:center;font-size:1.1rem;" class="reveal">
+    <p class="hand" style="font-size:1.6rem;color:var(--accent-2);">Photo nahi diya, dil diya — kaafi hai 💛</p>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="favorite.html" class="btn glow">Next: Why You're My Favorite →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="index.html">← Back to Home</a> &nbsp;|&nbsp; <a href="favorite.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  unlockAchievement('roasted');
+  spawnFxLayer('petal', 8);
+
+  document.getElementById('download-cert').addEventListener('click', ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = 800; canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#3d1626'; ctx.fillRect(0,0,800,500);
+    ctx.strokeStyle = '#ffc75f'; ctx.lineWidth = 6; ctx.strokeRect(20,20,760,460);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffc75f'; ctx.font = '40px Georgia'; ctx.fillText('Official Certificate', 400, 110);
+    ctx.fillStyle = '#fff3f6'; ctx.font = '22px Georgia'; ctx.fillText('This certifies that', 400, 190);
+    ctx.fillStyle = '#ff9a8b'; ctx.font = '46px Georgia'; ctx.fillText('Minnu', 400, 260);
+    ctx.fillStyle = '#fff3f6'; ctx.font = '20px Georgia';
+    ctx.fillText('successfully avoided sending a single photo,', 400, 320);
+    ctx.fillText('and is hereby sentenced to a lifetime of being adored anyway.', 400, 350);
+    ctx.fillStyle = '#ffd9e3'; ctx.font = 'italic 20px Georgia'; ctx.fillText('— Chhota Don, Judge & Jury', 400, 430);
+    const link = document.createElement('a');
+    link.download = 'minnu-certificate.png';
+    link.href = canvas.toDataURL();
+    link.click();
+    toast('Certificate downloaded! 📜');
+  });
+
+  initTreasureHeart('roast');
+  initKonami();
+</script>
+</body>
+</html>

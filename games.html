@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Games — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">Couple Edition</div>
+  <h1 class="display reveal">Mini Games 🎮</h1>
+</section>
+
+<section class="section">
+  <div class="grid grid-2">
+    <div class="game-card glass reveal">
+      <h3 class="display">Tic Tac Toe ❤️ vs 💙</h3>
+      <div class="ttt-board" id="ttt-board"></div>
+      <p id="ttt-status" style="margin-top:10px;"></p>
+      <button class="btn ghost mt" id="ttt-reset">Reset</button>
+    </div>
+
+    <div class="game-card glass reveal">
+      <h3 class="display">Love Calculator 💘</h3>
+      <form id="love-calc-form">
+        <input type="text" placeholder="Chhota Don" required style="width:100%;padding:10px;margin:8px 0;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+        <input type="text" placeholder="Minnu" required style="width:100%;padding:10px;margin:8px 0;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+        <button class="btn" type="submit" style="width:100%;justify-content:center;">Calculate 💗</button>
+      </form>
+      <div id="love-calc-result" class="mt"></div>
+    </div>
+
+    <div class="game-card glass reveal">
+      <h3 class="display">Memory Match 🧠</h3>
+      <div class="memory-grid" id="memory-grid"></div>
+      <p id="memory-status" style="margin-top:10px;"></p>
+      <button class="btn ghost mt" id="memory-reset">Shuffle</button>
+    </div>
+
+    <div class="game-card glass reveal">
+      <h3 class="display">Catch the Hearts 💖</h3>
+      <div id="catch-area" class="glass"></div>
+      <p class="mt">Score: <span id="catch-score">0</span></p>
+      <button class="btn mt" id="catch-start">Start Game</button>
+    </div>
+  </div>
+
+  <div class="game-card glass reveal mt" style="max-width:400px;margin:40px auto 0;">
+    <h3 class="display">Spin the Wheel — Couple Dares 🎡</h3>
+    <div class="spin-wheel-wrap">
+      <div class="spin-pointer">🔻</div>
+      <div id="spin-wheel"></div>
+      <button class="btn" id="spin-btn">Spin!</button>
+      <p id="spin-result" style="min-height:40px;text-align:center;"></p>
+    </div>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="surprises.html" class="btn glow">Next: Surprises →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="letters.html">← Back</a> &nbsp;|&nbsp; <a href="surprises.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/games.js"></script>
+<script>
+  initTreasureHeart('games');
+  initKonami();
+</script>
+</body>
+</html>

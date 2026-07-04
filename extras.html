@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extras — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">A few cool bonus bits</div>
+  <h1 class="display reveal">Extras 🌙</h1>
+</section>
+
+<section class="section">
+  <div class="extras-grid">
+    <div class="extra-card glass reveal">
+      <h3 class="display">Moon Phase — Today</h3>
+      <div style="font-size:3rem;margin-top:10px;" id="moon-icon">🌙</div>
+      <p class="mt" id="moon-text"></p>
+    </div>
+
+    <div class="extra-card glass reveal">
+      <h3 class="display">Day / Night Mode</h3>
+      <p class="mt">Manually switch the vibe.</p>
+      <div class="toggle-row">
+        <span>☀️</span>
+        <div class="switch" id="daynight-switch"></div>
+        <span>🌙</span>
+      </div>
+    </div>
+
+    <div class="extra-card glass reveal">
+      <h3 class="display">Background Music Mood</h3>
+      <p class="mt" style="opacity:0.75;font-size:0.85rem;">Pick a vibe — this shows the mood indicator (no external audio files bundled).</p>
+      <select id="music-select" style="width:100%;padding:10px;margin-top:12px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+        <option value="lofi">Lo-fi 🎧</option>
+        <option value="romantic">Romantic 🎻</option>
+        <option value="bollywood">Bollywood 🎬</option>
+      </select>
+      <p class="mt" id="music-status"></p>
+    </div>
+
+    <div class="extra-card glass reveal">
+      <h3 class="display">Weather, Wherever You Are</h3>
+      <p class="mt" id="weather-text">Tap to check.</p>
+      <button class="btn ghost mt" id="weather-btn">Check Weather ☁️</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="ending.html" class="btn glow">Next: The Ending →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="achievements.html">← Back</a> &nbsp;|&nbsp; <a href="ending.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Moon phase (approximation)
+  function moonPhase(date){
+    const lp = 2551443;
+    const newMoon = new Date(2000,0,6,18,14,0).getTime()/1000;
+    const phase = ((date.getTime()/1000 - newMoon) % lp) / lp;
+    const index = Math.floor(phase*8 + 0.5) % 8;
+    const phases = [
+      ['🌑','New Moon'], ['🌒','Waxing Crescent'], ['🌓','First Quarter'], ['🌔','Waxing Gibbous'],
+      ['🌕','Full Moon'], ['🌖','Waning Gibbous'], ['🌗','Last Quarter'], ['🌘','Waning Crescent']
+    ];
+    return phases[index];
+  }
+  const [icon, name] = moonPhase(new Date());
+  document.getElementById('moon-icon').textContent = icon;
+  document.getElementById('moon-text').textContent = `Tonight's moon: ${name}. Kal Minnu ke saath dekhne ka plan bana lo. 🌌`;
+
+  const dn = document.getElementById('daynight-switch');
+  const DN_KEY = 'minnu_daynight';
+  function applyDN(on){
+    document.body.style.filter = on ? 'brightness(0.85) saturate(1.1)' : '';
+    dn.classList.toggle('on', on);
+    localStorage.setItem(DN_KEY, on ? '1':'0');
+  }
+  applyDN(localStorage.getItem(DN_KEY) === '1');
+  dn.addEventListener('click', ()=> applyDN(!dn.classList.contains('on')));
+
+  document.getElementById('music-select').addEventListener('change', (e)=>{
+    const labels = {lofi:'Lo-fi mood set 🎧 — chill vibes only.', romantic:'Romantic mood set 🎻 — strings and soft piano energy.', bollywood:'Bollywood mood set 🎬 — dramatic violins incoming.'};
+    document.getElementById('music-status').textContent = labels[e.target.value];
+  });
+
+  document.getElementById('weather-btn').addEventListener('click', ()=>{
+    document.getElementById('weather-text').textContent = "Weather API is not bundled in this offline gift — but wherever you are, it's a good day because you're reading this. ☀️💕";
+  });
+
+  initTreasureHeart('extras');
+  initKonami();
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achievements & Memories — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">Progress unlocked</div>
+  <h1 class="display reveal">Achievements & Memories 🏆</h1>
+</section>
+
+<section class="section">
+  <div class="glass reveal" style="padding:26px;">
+    <h3 class="display">Love Level</h3>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="love-progress" style="width:0%;"></div></div>
+    <p class="mt" id="love-progress-text"></p>
+  </div>
+
+  <h2 class="section-title mt reveal">Badges</h2>
+  <div class="badge-grid" id="badge-grid"></div>
+
+  <h2 class="section-title mt reveal">Polaroid Wall</h2>
+  <p class="section-sub reveal">Since photos are missing, imagination fills the frames. 😂</p>
+  <div class="grid grid-3" id="polaroid-wall"></div>
+
+  <h2 class="section-title mt reveal">Wish Jar</h2>
+  <div class="wish-jar glass reveal" id="wish-jar"></div>
+  <form id="wish-form" style="display:flex;gap:10px;margin-top:14px;">
+    <input type="text" id="wish-input" placeholder="Ek wish daalo..." style="flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+    <button class="btn" type="submit">Add</button>
+  </form>
+
+  <h2 class="section-title mt reveal">Time Capsule</h2>
+  <div class="glass reveal" style="padding:26px;text-align:center;max-width:520px;margin:0 auto;">
+    <p>Ek message chhupao jo tum future mein khol sakti ho.</p>
+    <input type="text" id="capsule-msg" placeholder="Future Minnu ke liye message..." style="width:100%;padding:12px;margin-top:14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+    <input type="date" id="capsule-date" style="width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.06);color:var(--text-main);">
+    <button class="btn mt" id="capsule-save">Seal Capsule 🔒</button>
+    <p class="mt" id="capsule-status"></p>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="extras.html" class="btn glow">Next: Extras →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="ai-message.html">← Back</a> &nbsp;|&nbsp; <a href="extras.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  function renderBadges(){
+    const unlocked = getAchievements();
+    const grid = document.getElementById('badge-grid');
+    grid.innerHTML = '';
+    ALL_ACHIEVEMENTS.forEach(a=>{
+      const isUn = unlocked.includes(a.id);
+      const b = document.createElement('div');
+      b.className = 'badge glass reveal' + (isUn ? ' unlocked' : '');
+      b.innerHTML = `<span class="icon">${a.icon}</span><strong>${a.name}</strong><p style="font-size:0.8rem;margin-top:6px;color:var(--text-soft);">${a.desc}</p>`;
+      grid.appendChild(b);
+    });
+    initReveal();
+    const pct = Math.round((unlocked.length / ALL_ACHIEVEMENTS.length) * 100);
+    document.getElementById('love-progress').style.width = pct + '%';
+    document.getElementById('love-progress-text').textContent = `${unlocked.length} / ${ALL_ACHIEVEMENTS.length} badges unlocked — ${pct}% of the way to "forever".`;
+  }
+  renderBadges();
+
+  const polaroidCaps = [
+    "That one time you sent 27 texts in a row 😂",
+    "The 2am 'can't sleep' call",
+    "Our first argument (resolved in 5 mins)",
+    "The day you called me Chhota Don for the first time",
+    "Every 'good morning' text, stacked up",
+    "This website, being made at 1am",
+  ];
+  const wall = document.getElementById('polaroid-wall');
+  polaroidCaps.forEach(cap=>{
+    const p = document.createElement('div');
+    p.className = 'polaroid reveal';
+    p.innerHTML = `<div class="frame">👻</div><div class="cap">${cap}</div>`;
+    wall.appendChild(p);
+  });
+  initReveal();
+
+  const WISH_KEY = 'minnu_wishes';
+  function renderWishes(){
+    const jar = document.getElementById('wish-jar');
+    jar.innerHTML = '';
+    const wishes = JSON.parse(localStorage.getItem(WISH_KEY) || '["Ek trip together","Har saal yeh site update karna"]');
+    wishes.forEach(w=>{
+      const el = document.createElement('div');
+      el.className = 'wish';
+      el.textContent = '✨ ' + w;
+      el.style.left = Math.random()*70+'%';
+      el.style.top = Math.random()*80+'%';
+      jar.appendChild(el);
+    });
+  }
+  renderWishes();
+  document.getElementById('wish-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const input = document.getElementById('wish-input');
+    if(!input.value.trim()) return;
+    const wishes = JSON.parse(localStorage.getItem(WISH_KEY) || '[]');
+    wishes.push(input.value.trim());
+    localStorage.setItem(WISH_KEY, JSON.stringify(wishes));
+    input.value = '';
+    renderWishes();
+    toast('Wish added to the jar ✨');
+  });
+
+  document.getElementById('capsule-save').addEventListener('click', ()=>{
+    const msg = document.getElementById('capsule-msg').value.trim();
+    const date = document.getElementById('capsule-date').value;
+    if(!msg || !date){ toast('Message aur date dono daalo'); return; }
+    localStorage.setItem('minnu_capsule', JSON.stringify({msg, date}));
+    document.getElementById('capsule-status').textContent = `Sealed until ${date}. Come back on that day to open it.`;
+  });
+  (function checkCapsule(){
+    const c = JSON.parse(localStorage.getItem('minnu_capsule') || 'null');
+    if(c){
+      const today = new Date().toISOString().slice(0,10);
+      if(today >= c.date){
+        document.getElementById('capsule-status').textContent = `📬 Capsule unlocked: "${c.msg}"`;
+      } else {
+        document.getElementById('capsule-status').textContent = `Sealed until ${c.date}.`;
+      }
+    }
+  })();
+
+  initTreasureHeart('achievements');
+  initKonami();
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why You're My Favorite — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:36vh;">
+  <div class="eyebrow reveal">Reason #∞</div>
+  <h1 class="display reveal">Why You're My Favorite 💕</h1>
+  <p class="section-sub reveal">Flip the cards, Minnu. Har card ek sach hai.</p>
+</section>
+
+<section class="section">
+  <div class="grid grid-3" id="flip-grid"></div>
+
+  <div class="ticker-wrap glass reveal">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+
+  <div class="love-note-box glass reveal">
+    <h3 class="display" style="margin-bottom:10px;">Random Love Note</h3>
+    <p id="random-note" style="min-height:50px;font-size:1.05rem;">Button dabao, note aayega.</p>
+    <button class="btn mt" id="note-btn">Give Me a Reason 💌</button>
+  </div>
+
+  <div class="hug-kiss-row">
+    <button class="btn ghost" id="hug-btn">Virtual Hug 🤗</button>
+    <button class="btn ghost" id="kiss-btn">Virtual Kiss 😘</button>
+  </div>
+
+  <div class="love-note-box glass reveal">
+    <h3 class="display" style="margin-bottom:10px;">Daily Compliment</h3>
+    <p id="compliment-text" style="min-height:40px;"></p>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="letters.html" class="btn glow">Next: Open When Letters →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="roast.html">← Back</a> &nbsp;|&nbsp; <a href="letters.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  const reasons = [
+    {emoji:'😂', text:'Kyunki tera bakwas humour bhi mujhe hasata hai.'},
+    {emoji:'🫂', text:'Kyunki bina kuch bole bhi tu mujhe samajh leti hai.'},
+    {emoji:'🥺', text:'Kyunki tu duniya ki sabse genuine insaan hai jo maine dekhi.'},
+    {emoji:'😤', text:'Kyunki tera gussa bhi cute lagta hai (bata mat isko).'},
+    {emoji:'🌙', text:'Kyunki raat ko last text tera hi hota hai jo maine padha.'},
+    {emoji:'🍫', text:'Kyunki tu meri favorite bad habit hai jo main kabhi chodna nahi chahta.'},
+  ];
+  const grid = document.getElementById('flip-grid');
+  reasons.forEach(r=>{
+    const card = document.createElement('div');
+    card.className = 'flip-card reveal';
+    card.innerHTML = `<div class="flip-inner">
+      <div class="flip-front glass tilt-card">${r.emoji}</div>
+      <div class="flip-back glass">${r.text}</div>
+    </div>`;
+    card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+  initReveal();
+
+  const tickerReasons = reasons.map(r=>r.text).concat(["Tu meri favorite decision hai.","Tere bina kuch bhi complete nahi lagta."]);
+  const tickerHTML = tickerReasons.join(' &nbsp; 💖 &nbsp; ');
+  document.getElementById('ticker-track').innerHTML = tickerHTML + ' &nbsp; 💖 &nbsp; ' + tickerHTML;
+
+  document.getElementById('note-btn').addEventListener('click', ()=>{
+    const r = reasons[Math.floor(Math.random()*reasons.length)];
+    document.getElementById('random-note').textContent = `${r.emoji} ${r.text}`;
+  });
+
+  function popEmoji(emoji){
+    const el = document.createElement('div');
+    el.className = 'pop-emoji';
+    el.textContent = emoji;
+    el.style.left = (40+Math.random()*20)+'vw';
+    el.style.top = '60vh';
+    document.body.appendChild(el);
+    el.animate([
+      {transform:'translateY(0) scale(1)', opacity:1},
+      {transform:'translateY(-160px) scale(1.8)', opacity:0}
+    ], {duration:1000, easing:'ease-out'}).onfinish = ()=> el.remove();
+  }
+  document.getElementById('hug-btn').addEventListener('click', ()=>{ popEmoji('🤗'); toast('Hug sent! 🤗'); });
+  document.getElementById('kiss-btn').addEventListener('click', ()=>{ popEmoji('😘'); toast('Kiss sent! 😘'); });
+
+  const compliments = [
+    "Aaj bhi tu meri favorite notification hai.",
+    "Tera smile mera best mood-lifter hai.",
+    "Tu jitni pyaari hai, utni hi thodi weird bhi hai — perfect combo.",
+    "Duniya mein sabse achhi cheez: tera good morning text.",
+  ];
+  document.getElementById('compliment-text').textContent = compliments[new Date().getDate() % compliments.length];
+
+  initTreasureHeart('favorite');
+  initKonami();
+</script>
+</body>
+</html>

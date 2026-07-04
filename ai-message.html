@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Love Message — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">Made for this mood, right now</div>
+  <h1 class="display reveal">AI Love Message Generator 🤖💌</h1>
+  <p class="section-sub reveal">Mood aur occasion batao, ek personalized Hinglish note milega — Chhota Don se, Minnu ke liye.</p>
+</section>
+
+<section class="section">
+  <form id="ai-msg-form" class="ai-form glass reveal">
+    <label for="ai-mood">Mood</label>
+    <select id="ai-mood">
+      <option value="happy">Happy 😊</option>
+      <option value="sad">Sad 😢</option>
+      <option value="missing">Missing You 🥺</option>
+      <option value="angry">Angry at me 😤</option>
+      <option value="romantic" selected>Just romantic 💕</option>
+      <option value="anniversary">Anniversary / Special day 🎉</option>
+      <option value="bored">Bored 😑</option>
+    </select>
+
+    <label for="ai-occasion">Occasion / anything specific (optional)</label>
+    <input type="text" id="ai-occasion" placeholder="e.g. Monday blues, exam stress, our first date...">
+
+    <button class="btn glow mt" type="submit" style="width:100%;justify-content:center;">Generate Message ✨</button>
+  </form>
+
+  <div class="glass hidden reveal" id="ai-msg-card">
+    <div id="ai-msg-output"></div>
+    <div class="ai-btn-row">
+      <button class="btn ghost" id="ai-copy">Copy 📋</button>
+      <button class="btn ghost" id="ai-share">Share 📤</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="achievements.html" class="btn glow">Next: Achievements →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="surprises.html">← Back</a> &nbsp;|&nbsp; <a href="achievements.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/messages.js"></script>
+<script>
+  initTreasureHeart('ai-message');
+  initKonami();
+</script>
+</body>
+</html>

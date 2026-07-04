@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signature Wall — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">Leave your mark</div>
+  <h1 class="display reveal">Signature Wall 🖋️</h1>
+  <p class="section-sub reveal">Apna naam chhod jao, is moment ko yaad rakhne ke liye — jitne baar chaho utni baar.</p>
+</section>
+
+<section class="section">
+  <div class="signature-wall glass reveal" style="max-width:640px;">
+    <h3 class="display">Sign the Wall</h3>
+    <form class="sign-input-row" id="sign-form">
+      <input type="text" id="sign-input" placeholder="Your name..." maxlength="30">
+      <input type="text" id="sign-note" placeholder="A tiny note (optional)" maxlength="60">
+      <button class="btn" type="submit">Sign 🖋️</button>
+    </form>
+    <p id="sign-status" style="margin-top:10px;font-size:0.85rem;color:var(--text-soft);"></p>
+  </div>
+
+  <h2 class="section-title mt reveal">On the Wall</h2>
+  <div class="grid grid-3" id="signature-cards"></div>
+
+  <div style="text-align:center;" class="mt reveal">
+    <button class="btn ghost" id="clear-wall">Clear Wall</button>
+    <a href="ending.html" class="btn glow">Next: Forever →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="extras.html">← Back</a> &nbsp;|&nbsp; <a href="ending.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  const SIGN_KEY = 'minnu_signatures_v2';
+
+  function getSigs(){
+    try{ return JSON.parse(localStorage.getItem(SIGN_KEY)) || []; }catch(e){ return []; }
+  }
+  function renderSigs(){
+    const sigs = getSigs();
+    const wrap = document.getElementById('signature-cards');
+    wrap.innerHTML = '';
+    if(sigs.length === 0){
+      wrap.innerHTML = '<p style="opacity:0.7;grid-column:1/-1;text-align:center;">No signatures yet — be the first. 💌</p>';
+      return;
+    }
+    sigs.slice().reverse().forEach((s, revIdx)=>{
+      const i = sigs.length - 1 - revIdx;
+      const card = document.createElement('div');
+      card.className = 'glass tilt-card reveal';
+      card.style.padding = '20px';
+      card.style.textAlign = 'center';
+      card.innerHTML = `
+        <div class="hand" style="font-size:1.5rem;color:var(--accent-2);">✍️ ${s.name}</div>
+        ${s.note ? `<div style="margin-top:8px;font-size:0.9rem;color:var(--text-soft);">"${s.note}"</div>` : ''}
+        <div style="margin-top:10px;font-size:0.72rem;opacity:0.55;">${s.date}</div>
+      `;
+      wrap.appendChild(card);
+    });
+    initReveal();
+  }
+  renderSigs();
+
+  document.getElementById('sign-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const nameInput = document.getElementById('sign-input');
+    const noteInput = document.getElementById('sign-note');
+    const name = nameInput.value.trim();
+    if(!name){ toast('Naam toh daalo pehle 😅'); return; }
+    const sigs = getSigs();
+    sigs.push({name, note: noteInput.value.trim(), date: new Date().toLocaleDateString()});
+    localStorage.setItem(SIGN_KEY, JSON.stringify(sigs));
+    nameInput.value = '';
+    noteInput.value = '';
+    renderSigs();
+    toast('Signed! Thanks for leaving your mark 🖋️');
+    fireConfetti(1400);
+  });
+
+  document.getElementById('clear-wall').addEventListener('click', ()=>{
+    if(confirm('Pura wall clear karna hai? Yeh undo nahi hoga.')){
+      localStorage.removeItem(SIGN_KEY);
+      renderSigs();
+    }
+  });
+
+  initTreasureHeart('signature');
+  initKonami();
+</script>
+</body>
+</html>

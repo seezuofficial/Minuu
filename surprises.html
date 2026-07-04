@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprises — Minnu × Chhota Don</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose" data-theme="rose"></div>
+      <div class="theme-dot lavender" data-theme="lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight"></div>
+      <div class="theme-dot mix" data-theme="mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero" style="min-height:32vh;">
+  <div class="eyebrow reveal">Easter eggs everywhere</div>
+  <h1 class="display reveal">Surprises 🎁</h1>
+  <p class="section-sub reveal">Psst — 5 hidden hearts 💗 are scattered across this whole site. Keep an eye out.</p>
+</section>
+
+<section class="section">
+  <div class="grid grid-2">
+    <div class="glass reveal" style="padding:30px;text-align:center;">
+      <h3 class="display">Gift Box</h3>
+      <div class="gift-box mt" id="gift-box">🎁</div>
+      <p class="mt" id="gift-msg" style="min-height:30px;">Tap the box...</p>
+    </div>
+
+    <div class="glass reveal" style="padding:30px;text-align:center;">
+      <h3 class="display">Lucky Envelope</h3>
+      <div class="gift-box mt" id="lucky-env">✉️</div>
+      <p class="mt" id="lucky-msg" style="min-height:30px;">Tap for a random surprise note...</p>
+    </div>
+  </div>
+
+  <h2 class="section-title mt reveal">Mood Selector</h2>
+  <p class="section-sub reveal">Batao aaj mood kaisa hai — jawab tayaar hai.</p>
+  <div class="mood-grid">
+    <div class="mood-btn glass tilt-card reveal" data-mood="happy">😊<br>Happy</div>
+    <div class="mood-btn glass tilt-card reveal" data-mood="sad">😢<br>Sad</div>
+    <div class="mood-btn glass tilt-card reveal" data-mood="bored">😑<br>Bored</div>
+    <div class="mood-btn glass tilt-card reveal" data-mood="missing">🥺<br>Missing You</div>
+  </div>
+  <div class="mood-output glass hidden" id="mood-output"></div>
+
+  <h2 class="section-title mt reveal">Secret Mini Room</h2>
+  <p class="section-sub reveal">Kuch chhupa hua hai is room mein... click karke dhundo.</p>
+  <div class="secret-room glass" id="secret-room">
+    <div class="secret-object" style="left:15%;top:30%;" data-msg="Ek raaz: tu meri favorite insaan hai.">🕯️</div>
+    <div class="secret-object" style="left:70%;top:60%;" data-msg="Yeh mila! Tere jaisa koi nahi.">📷</div>
+    <div class="secret-object" style="left:45%;top:20%;" data-msg="Shhh... yeh sirf tumhare liye tha.">🗝️</div>
+  </div>
+
+  <p class="section-sub mt reveal" style="opacity:0.6;">Hint: try the arrow keys in a certain pattern... ↑↑↓↓←→←→BA</p>
+
+  <div style="text-align:center;" class="mt reveal">
+    <a href="ai-message.html" class="btn glow">Next: AI Love Notes →</a>
+  </div>
+</section>
+
+<div class="page-footer">
+  <a href="games.html">← Back</a> &nbsp;|&nbsp; <a href="ai-message.html">Next →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('gift-box').addEventListener('click', function(){
+    this.textContent = '💝';
+    document.getElementById('gift-msg').textContent = "Surprise! Andar tha... ek aur wajah tujhe pyaar karne ki. 💕";
+    fireConfetti(1800);
+  });
+
+  const luckyNotes = [
+    "Aaj ka lucky note: tu already kaafi lucky hai ki Chhota Don mil gaya. 😎",
+    "Free coupon: 1 unlimited hug, valid forever. 🤗",
+    "Aaj koi bhi cheez maango, main try karunga laa ke dena. 🎁",
+    "Reminder: tu jitna sochti hai, usse zyada pyaari hai. 💖",
+  ];
+  document.getElementById('lucky-env').addEventListener('click', function(){
+    document.getElementById('lucky-msg').textContent = luckyNotes[Math.floor(Math.random()*luckyNotes.length)];
+  });
+
+  document.querySelectorAll('.mood-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const out = document.getElementById('mood-output');
+      out.classList.remove('hidden');
+      out.textContent = MOOD_MESSAGES[btn.dataset.mood];
+    });
+  });
+
+  document.querySelectorAll('.secret-object').forEach(obj=>{
+    obj.addEventListener('click', ()=>{
+      toast(obj.dataset.msg);
+      obj.style.opacity = '1';
+    });
+  });
+
+  initTreasureHeart('surprises');
+  initKonami(()=>{
+    document.body.insertAdjacentHTML('beforeend', `<div id="secret-scene" style="position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;">
+      <div class="glass" style="padding:40px;max-width:500px;">
+        <h2 class="display" style="color:var(--accent-2);">Secret Scene Unlocked 🕵️💕</h2>
+        <p class="mt">Tune Konami code dhoondh liya — matlab tu genuinely curious hai, aur mujhe yeh quality bahut pasand hai. Yeh raha ek extra secret: tu meri sabse acchi surprise ho, bina kisi code ke bhi. 🖤</p>
+        <button class="btn mt" onclick="document.getElementById('secret-scene').remove()">Close</button>
+      </div>
+    </div>`);
+    fireConfetti(2200);
+  });
+</script>
+</body>
+</html>
