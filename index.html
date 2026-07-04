@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minnu × Chhota Don 💕</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-heart">💕</div>
+  <div class="loading-text">Minnu</div>
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+</div>
+
+<div id="lock-screen">
+  <div class="lock-card glass">
+    <div class="lock-heart">🔒</div>
+    <h2>Sirf Minnu ke liye</h2>
+    <p style="color:var(--text-soft);font-size:0.9rem;margin-top:6px;">Password daalo, warna Chhota Don naraz ho jayega</p>
+    <input type="password" id="lock-input" placeholder="password..." autocomplete="off">
+    <button class="btn glow" id="lock-submit" style="width:100%;justify-content:center;">Unlock 💖</button>
+    <div class="lock-msg" id="lock-msg"></div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="brand">Minnu × Chhota Don</div>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="roast.html">Roast</a>
+      <a href="favorite.html">Favorite</a>
+      <a href="letters.html">Letters</a>
+      <a href="games.html">Games</a>
+      <a href="surprises.html">Surprises</a>
+      <a href="ai-message.html">AI Notes</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="extras.html">Extras</a>
+      <a href="signature.html">Signatures</a>
+      <a href="ending.html">Forever</a>
+    </div>
+    <div class="theme-switcher">
+      <div class="theme-dot rose active" data-theme="rose" title="Rose + Gold"></div>
+      <div class="theme-dot lavender" data-theme="lavender" title="Purple + Lavender"></div>
+      <div class="theme-dot midnight" data-theme="midnight" title="Midnight + Stars"></div>
+      <div class="theme-dot mix" data-theme="mix" title="All Mix"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="eyebrow reveal">A little something for you</div>
+  <h1 class="hero-title display reveal">Sirf tere liye banaya hai yeh <span class="hand">💕</span></h1>
+  <p class="hero-sub reveal" id="hero-type"></p>
+  <a href="roast.html" class="btn glow reveal" id="enter-btn">Enter Karo, Daro Mat 🚪✨</a>
+</section>
+
+<div class="page-footer reveal">
+  Next stop: <a href="roast.html">The Roast Court →</a>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  const lockScreen = document.getElementById('lock-screen');
+  const lockInput = document.getElementById('lock-input');
+  const lockMsg = document.getElementById('lock-msg');
+  const roasts = [
+    "Galat password. Chhota Don ka empire itni aasani se nahi khulta. 😤",
+    "Nahi Minnu, yeh sahi nahi hai. Ek aur try? 😏",
+    "Password galat, dil sahi hai — phir bhi try karo. 💔😂",
+    "Beta, yeh koi random guess ka khel nahi hai. 🔐"
+  ];
+  function tryUnlock(){
+    const v = lockInput.value.trim().toLowerCase();
+    if(v === 'minnu'){
+      unlockAchievement('unlocked');
+      lockScreen.classList.add('unlocked');
+    } else {
+      lockMsg.textContent = roasts[Math.floor(Math.random()*roasts.length)];
+      document.querySelector('.lock-card').classList.add('shake');
+      setTimeout(()=> document.querySelector('.lock-card').classList.remove('shake'), 500);
+    }
+  }
+  document.getElementById('lock-submit').addEventListener('click', tryUnlock);
+  lockInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') tryUnlock(); });
+
+  // if already unlocked before, skip
+  if(getAchievements().includes('unlocked')){
+    lockScreen.classList.add('unlocked');
+  }
+
+  // typewriter subtitle
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      typewrite(document.getElementById('hero-type'), "Ek chhota sa jahaan, jahan sirf tum aur pyaar hai — chalo dekhte hai.", 35);
+    }, 1600);
+  });
+
+  // heart rain + balloons
+  spawnFxLayer('heart', 10);
+  function spawnBalloons(){
+    const layer = document.querySelector('.fx-layer');
+    for(let i=0;i<6;i++){
+      const b = document.createElement('div');
+      b.textContent = ['🎈','🎈','🎈'][i%3];
+      b.className = 'balloon';
+      b.style.left = (5+Math.random()*90)+'vw';
+      b.style.filter = `hue-rotate(${Math.random()*360}deg)`;
+      layer.appendChild(b);
+      b.animate([
+        {transform:'translateY(0) rotate(0deg)', opacity:1},
+        {transform:`translateY(-115vh) rotate(${Math.random()*40-20}deg)`, opacity:0.9}
+      ], {duration:9000+Math.random()*4000, delay:Math.random()*4000, iterations:Infinity, easing:'ease-in-out'});
+    }
+  }
+  spawnBalloons();
+
+  document.getElementById('enter-btn').addEventListener('click', ()=>{
+    fireConfetti(1800);
+  });
+
+  initTreasureHeart('index');
+  initKonami();
+</script>
+</body>
+</html>
